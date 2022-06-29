@@ -1,0 +1,30 @@
+package firstproject;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+public class Test3 {
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=7;
+		ArrayList<Integer>ar1=new ArrayList<>();
+		for (int i = 0; i <n; i++) {
+			ar1.add(i);
+		}
+		
+		int k=3;
+		int idx=0;
+		solve(ar1,k,idx);
+		
+
+	}
+	public static void solve(ArrayList<Integer>ar1,int k,int idx) {
+		if(ar1.size()==1) {
+			System.out.println(ar1.get(0));
+			return ;
+		}
+		idx=(idx+(k-1))%ar1.size();   // to find out next starting index when we call for smaller array ,after deleting 3rd index.
+		ar1.remove(idx);
+		solve(ar1,k,idx);
+	}
+}
