@@ -1,0 +1,80 @@
+package firstproject;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+public class Test3 {
+	public static void main(String[] args) {
+	       Scanner sc=new Scanner(System.in);
+		int [][]arr=new int [9][9];
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr.length; j++) {
+				arr[i][j]=sc.nextInt();
+			}
+		}
+		solve(arr,0,0);
+	}
+	 public static void display(int[][] arr){
+		    for(int i = 0; i < arr.length; i++){
+		      for(int j = 0; j < arr[0].length; j++){
+		        System.out.print(arr[i][j] + " ");
+		      }
+		      System.out.println();
+		    }
+		  }
+	public static boolean valid(int [][]arr,int x,int y,int val) {
+		for(int i=0;i<arr.length;i++) { //checking valid position in horizontal direction
+			if(arr[x][i]==val) {
+				return false;
+			}
+		}
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i][y]==val) {       //checking valid position in vertical direction
+				return false;
+			}
+		}
+		int k1=x/3*3;        //checking valid position in 3*3 sub matrix
+		int k2=y/3*3;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if(arr[k1+i][k2+j]==val) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	 
+	public static void solve(int [][]arr,int i,int j) {
+		if(i==arr.length) {
+			display(arr);
+			return;
+		}
+		int ni=0;
+		int nj=0;
+		if(j==arr[0].length-1) {    // for finding valid index for next recursive call
+			                   // because we we can not simply do i++or j++. After 9th
+			                     // position next position will be first position of next row
+			
+			ni=i+1;
+			nj=0;
+		}
+		else {
+			ni=i;
+			nj=j+1;
+		}
+		if(arr[i][j]!=0) {
+			solve(arr,ni,nj);
+			
+		}else {
+			for(int val=1;val<=9;val++) {
+				if(valid(arr,i,j,val)) {
+					arr[i][j]=val;
+					solve(arr,ni,nj);
+					arr[i][j]=0;
+				}
+			}
+		}
+		
+	}
+}
