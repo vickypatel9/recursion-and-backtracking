@@ -1,0 +1,25 @@
+
+class Solution {
+  boolean b1=false;
+    public void helper(TreeNode root,int sum,int targetSum){
+        if(root==null){
+            return;
+        }
+        sum=sum+root.val;
+        if(root.left==null&root.right==null){
+           
+            if(sum==targetSum)
+            b1=true;
+            return;
+           
+        }
+          
+        helper(root.left,sum,targetSum);
+        helper(root.right,sum,targetSum);
+    }
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        
+      helper(root,0,targetSum);
+        return b1;
+    }
+}
